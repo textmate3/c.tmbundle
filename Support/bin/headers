@@ -52,7 +52,7 @@ def compiler_search_path(domain = :system)
 
     res = [ ]
     list.grep(/^ (\S*)( \(framework directory\)$)?/) do
-      next unless File.exists? $1
+      next unless File.exist? $1
       res << { :path => $1, :framework => ($2 ? true : false) }
     end
     res
@@ -133,7 +133,7 @@ def find_header_with_prefix(prefix, dirs)
         else
           Dir["{,*.framework/Frameworks/}#{prefix}*.framework/Headers"].map do |path|
             if path =~ /(?:.*\.framework\/Frameworks\/)?(.*)\.framework\/Headers/
-              if File.exists? "#{path}/#$1.h"
+              if File.exist? "#{path}/#$1.h"
                 paths << [ "#$1/#$1.h" ]
               else
                 paths << Dir["#{path}/[A-Za-z]*.h"]
